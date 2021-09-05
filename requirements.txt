@@ -1,0 +1,4 @@
+farm
+pytesseract
+extract-msg
+pdf2image
