@@ -75,7 +75,7 @@ class Extractor:
         logging.info(f"zip file {zip_file} removed.")
 
     @classmethod
-    def convert_pdf_to_jpg(cls, pdf):
+    def convert_pdf_to_jpg(cls, pdf, save_dir):
         """
         Converts a pdf into JPEG on page level.
 
@@ -91,14 +91,13 @@ class Extractor:
 
         img = convert_from_path(pdf, poppler_path = r"C:\Users\ekohl\OneDrive\Desktop\poppler-21.08.0\Library\bin")
         path, file_name = os.path.split(pdf)
-
+        logging.info(f"converting {file_name}.")
         for i in range(len(img)):
-            logging.info(f"converting {file_name}.")
-            page_file_name = file_name + f"page_{i}.jpg", "JPEG"
-            img[i].save(page_file_name)
+            page_file_name = os.path.join(save_dir, file_name + f"page_{i}.jpg")
+            img[i].save(page_file_name, "JPEG")
             logging.info(f"{file_name} converted to {page_file_name}.")
-            os.remove(pdf)
-            logging.info(f"{file_name} deleted.")
+        os.remove(pdf)
+        logging.info(f"{file_name} deleted.")
 
     def extract_txt_from_img(self):
         text = pytesseract.image_to_string(self.img)

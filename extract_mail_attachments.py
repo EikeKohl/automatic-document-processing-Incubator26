@@ -15,4 +15,4 @@ for zip_file in zip_files:
 
 for pdf_file in pdf_files:
     file_path = os.path.join(SAVE_DIR, pdf_file)
-    Extractor.convert_pdf_to_jpg(file_path)
+    Extractor.convert_pdf_to_jpg(file_path, SAVE_DIR)
